@@ -25,6 +25,48 @@
     },
     {
       "intent": "AMAZON.HelpIntent"
+    },
+    {
+      "intent" : "OSPreference",
+      "slots" : [
+        {
+          "name" : "osPref",
+          "type" : "OS_SLOT"
+        }
+      ]
+    },
+    {
+      "intent" : "MemoryPreference",
+      "slots" : [
+        {
+          "name" : "memPref",
+          "type" : "MEM_SLOT"
+        }
+      ]
+    },
+    {
+      "intent" : "ReadRecs"
+    },
+    {
+      "intent" : "ExpandPreferredRec",
+      "slots" : [
+        {
+          "name" : "expandPreferredNum",
+          "type" : "AMAZON.NUMBER"
+        }
+      ]
+    },
+    {
+      "intent" : "AskFurtherInfo"
+    },
+    {
+      "intent" : "HappyEnding",
+      "slots" : [
+        {
+          "name" : "endingPreference",
+          "type" : "BOO_SLOT"
+        }
+      ]
     }
   ]
 }
