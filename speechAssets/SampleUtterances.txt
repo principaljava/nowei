@@ -5,4 +5,22 @@ BudgetIntent up to {maximumBudget}
 BudgetIntent up to a maximum of {maximumBudget}
 BudgetIntent around {aroundBudget}
 
-TestIntent Test attributes
+TestIntent test attributes
+
+ExpandPreferredRec {expandPreferredNum}
+ExpandPreferredRec number {expandPreferredNum}
+ExpandPreferredRec expand number {expandPreferredNum}
+ExpandPreferredRec expand {expandPreferredNum}
+ExpandPreferredRec on number {expandPreferredNum}
+ExpandPreferredRec for number {expandPreferredNum}
+ExpandPreferredRec {expandPreferredNum} please
+ExpandPreferredRec number {expandPreferredNum} please
+ExpandPreferredRec expand number {expandPreferredNum} please
+ExpandPreferredRec expand {expandPreferredNum} please
+ExpandPreferredRec on number {expandPreferredNum} please
+ExpandPreferredRec for number {expandPreferredNum} please
+ExpandPreferredRec read number {expandPreferredNum} please
+ExpandPreferredRec read {expandPreferredNum} please
+ExpandPreferredRec for number {expandPreferredNum}
+ExpandPreferredRec read number {expandPreferredNum}
+ExpandPreferredRec read {expandPreferredNum}
