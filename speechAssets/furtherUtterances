@@ -1,0 +1,6 @@
+AskFurtherInfo {expandPreferredNum}
+AskFurtherInfo number {expandPreferredNum}
+AskFurtherInfo expand number {expandPreferredNum}
+AskFurtherInfo expand {expandPreferredNum}
+AskFurtherInfo on number {expandPreferredNum}
+AskFurtherInfo for number {expandPreferredNum}
