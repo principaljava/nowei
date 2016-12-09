@@ -1,0 +1,450 @@
+{
+  "phones": [
+    {
+      "title": "iPhone 7 Plus 256",
+      "price": 91900,
+      "os": "IOS",
+      "memory": "256",
+      "colors": [
+        "jet-black",
+        "black",
+        "silver",
+        "gold",
+        "rose-gold"
+      ]
+    },
+    {
+      "title": "iPhone 7 Plus 128",
+      "price": 81900,
+      "os": "IOS",
+      "memory": "128",
+      "colors": [
+        "jet-black",
+        "black",
+        "silver",
+        "gold",
+        "rose-gold"
+      ]
+    },
+    {
+      "title": "iPhone 7 256",
+      "price": 79900,
+      "os": "IOS",
+      "memory": "256",
+      "colors": [
+        "jet-black",
+        "black",
+        "silver",
+        "gold",
+        "rose-gold"
+      ]
+    },
+    {
+      "title": "iPhone 7 Plus 32",
+      "price": 71900,
+      "os": "IOS",
+      "memory": "32",
+      "colors": [
+        "black",
+        "silver",
+        "gold",
+        "rose-gold"
+      ]
+    },
+    {
+      "title": "iPhone 6S Plus 128",
+      "price": 69900,
+      "os": "IOS",
+      "memory": "128",
+      "colors": [
+        "grey",
+        "silver",
+        "gold",
+        "rose-gold"
+      ]
+    },
+    {
+      "title": "iPhone 7 128",
+      "price": 69900,
+      "os": "IOS",
+      "memory": "128",
+      "colors": [
+        "jet-black",
+        "black",
+        "silver",
+        "gold",
+        "rose-gold"
+      ]
+    },
+    {
+      "title": "iPhone 6S Plus 64",
+      "price": 65900,
+      "os": "IOS",
+      "memory": "64",
+      "colors": [
+        "silver"
+      ]
+    },
+    {
+      "title": "iPhone 6S Plus 32",
+      "price": 59900,
+      "os": "IOS",
+      "memory": "32",
+      "colors": [
+        "grey",
+        "silver",
+        "gold",
+        "rose-gold"
+      ]
+    },
+    {
+      "title": "iPhone 7 32",
+      "price": 59900,
+      "os": "IOS",
+      "memory": "32",
+      "colors": [
+        "black",
+        "silver",
+        "gold",
+        "rose-gold"
+      ]
+    },
+    {
+      "title": "iPhone 6S 128",
+      "price": 59900,
+      "os": "IOS",
+      "memory": "128",
+      "colors": [
+        "grey",
+        "silver",
+        "gold",
+        "rose-gold"
+      ]
+    },
+    {
+      "title": "Samsung Galaxy S7 edge 32",
+      "price": 57900,
+      "os": "Android",
+      "memory": "32",
+      "colors": [
+        "black-onyx",
+        "gold-platinum"
+      ]
+    },
+    {
+      "title": "iPhone 6S Plus 16",
+      "price": 57900,
+      "os": "IOS",
+      "memory": "16",
+      "colors": [
+        "grey"
+      ]
+    },
+    {
+      "title": "Samsung Galaxy S7 edge 32",
+      "price": 57900,
+      "os": "Android",
+      "memory": "32",
+      "colors": [
+        "pink-gold"
+      ]
+    },
+    {
+      "title": "Samsung Galaxy S7 32",
+      "price": 49900,
+      "os": "Android",
+      "memory": "32",
+      "colors": [
+        "black-onyx",
+        "gold-platinum"
+      ]
+    },
+    {
+      "title": "iPhone 6S 32",
+      "price": 49900,
+      "os": "IOS",
+      "memory": "32",
+      "colors": [
+        "grey",
+        "silver",
+        "gold",
+        "rose-gold"
+      ]
+    },
+    {
+      "title": "Sony Xperia XZ 32",
+      "price": 49900,
+      "os": "Android",
+      "memory": "32",
+      "colors": [
+        "forest-blue",
+        "platinum"
+      ]
+    },
+    {
+      "title": "Samsung Galaxy S6 edge 64",
+      "price": 49900,
+      "os": "Android",
+      "memory": "64",
+      "colors": [
+        "black"
+      ]
+    },
+    {
+      "title": "Samsung Galaxy S7 32",
+      "price": 49900,
+      "os": "Android",
+      "memory": "32",
+      "colors": [
+        "pink-gold"
+      ]
+    },
+    {
+      "title": "Sony Xperia Z5 Premium 32",
+      "price": 49900,
+      "os": "Android",
+      "memory": "32",
+      "colors": [
+        "black"
+      ]
+    },
+    {
+      "title": "Samsung Galaxy S6 64",
+      "price": 44900,
+      "os": "Android",
+      "memory": "64",
+      "colors": [
+        "gold"
+      ]
+    },
+    {
+      "title": "Sony Xperia X 32",
+      "price": 44900,
+      "os": "Android",
+      "memory": "32",
+      "colors": [
+        "graphite-black",
+        "rose-gold"
+      ]
+    },
+    {
+      "title": "Samsung Galaxy S6 edge 32",
+      "price": 44900,
+      "os": "Android",
+      "memory": "32",
+      "colors": [
+        "black",
+        "gold"
+      ]
+    },
+    {
+      "title": "LG G5 32",
+      "price": 42900,
+      "os": "Android",
+      "memory": "32",
+      "colors": [
+        "titan"
+      ]
+    },
+    {
+      "title": "Samsung Galaxy S6 32",
+      "price": 41900,
+      "os": "Android",
+      "memory": "32",
+      "colors": [
+        "gold"
+      ]
+    },
+    {
+      "title": "iPhone SE 64",
+      "price": 39900,
+      "os": "IOS",
+      "memory": "64",
+      "colors": [
+        "grey",
+        "silver",
+        "gold",
+        "rose-gold"
+      ]
+    },
+    {
+      "title": "Sony Xperia X Compact 32",
+      "price": 34900,
+      "os": "Android",
+      "memory": "32",
+      "colors": [
+        "universe-black",
+        "mist-blue"
+      ]
+    },
+    {
+      "title": "Huawei P9 32",
+      "price": 33900,
+      "os": "Android",
+      "memory": "32",
+      "colors": [
+        "titanium-grey"
+      ]
+    },
+    {
+      "title": "iPhone SE 16",
+      "price": 32900,
+      "os": "IOS",
+      "memory": "16",
+      "colors": [
+        "grey",
+        "silver",
+        "gold",
+        "rose-gold"
+      ]
+    },
+    {
+      "title": "Sony Xperia XA Ultra 16",
+      "price": 29900,
+      "os": "Android",
+      "memory": "16",
+      "colors": [
+        "black"
+      ]
+    },
+    {
+      "title": "Samsung Galaxy A5 2016 16",
+      "price": 25900,
+      "os": "Android",
+      "memory": "16",
+      "colors": [
+        "black"
+      ]
+    },
+    {
+      "title": "Sony Xperia XA 16",
+      "price": 21900,
+      "os": "Android",
+      "memory": "16",
+      "colors": [
+        "graphite-black",
+        "lime-gold"
+      ]
+    },
+    {
+      "title": "Samsung Galaxy A3 2016 16",
+      "price": 21900,
+      "os": "Android",
+      "memory": "16",
+      "colors": [
+        "black",
+        "gold"
+      ]
+    },
+    {
+      "title": "iPhone 5s 16",
+      "price": 19900,
+      "os": "IOS",
+      "memory": "16",
+      "colors": [
+        "grey",
+        "silver"
+      ]
+    },
+    {
+      "title": "Huawei P9 Lite 16",
+      "price": 19900,
+      "os": "Android",
+      "memory": "16",
+      "colors": [
+        "black"
+      ]
+    },
+    {
+      "title": "LG Stylus 2 16",
+      "price": 19900,
+      "os": "Android",
+      "memory": "16",
+      "colors": [
+        "brown"
+      ]
+    },
+    {
+      "title": "Samsung Galaxy J5 2016 16",
+      "price": 17900,
+      "os": "Android",
+      "memory": "16",
+      "colors": [
+        "black",
+        "gold"
+      ]
+    },
+    {
+      "title": "Sony Xperia E5 16",
+      "price": 14900,
+      "os": "Android",
+      "memory": "16",
+      "colors": [
+        "black"
+      ]
+    },
+    {
+      "title": "Samsung Galaxy J3 2016 8",
+      "price": 12900,
+      "os": "Android",
+      "memory": "8",
+      "colors": [
+        "black"
+      ]
+    },
+    {
+      "title": "Microsoft Lumia 650 16",
+      "price": 11900,
+      "os": "Android",
+      "memory": "16",
+      "colors": [
+        "black"
+      ]
+    },
+    {
+      "title": "HTC Desire 530 16",
+      "price": 11900,
+      "os": "Android",
+      "memory": "16",
+      "colors": [
+        "blue-lagoon"
+      ]
+    },
+    {
+      "title": "Microsoft Lumia 640 8",
+      "price": 9900,
+      "os": "Android",
+      "memory": "8",
+      "colors": [
+        "black"
+      ]
+    },
+    {
+      "title": "Motorola E3 8",
+      "price": 9900,
+      "os": "Android",
+      "memory": "8",
+      "colors": [
+        "black"
+      ]
+    },
+    {
+      "title": "LG K4 8",
+      "price": 8900,
+      "os": "Android",
+      "memory": "8",
+      "colors": [
+        "indigo"
+      ]
+    },
+    {
+      "title": "Alcatel Pixi 4 5\" 8",
+      "price": 5900,
+      "os": "Android",
+      "memory": "8",
+      "colors": [
+        "black"
+      ]
+    }
+  ]
+}

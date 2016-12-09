@@ -27,7 +27,7 @@ var APP_ID = undefined; //replace with "amzn1.echo-sdk-ams.app.[your-unique-valu
  * The AlexaSkill prototype and helper functions
  */
 var AlexaSkill = require('./AlexaSkill');
-
+var WeiSkill = require('./WeiSkill');
 /**
  * HelloWorld is a child of AlexaSkill.
  * To read more about inheritance in JavaScript, see the link below.
@@ -78,3 +78,5 @@ exports.handler = function (event, context) {
     helloWorld.execute(event, context);
 };
 
+// WeiSkill.formatData();
+WeiSkill.makeRecommendations(600, "ios", 16);
