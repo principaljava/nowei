@@ -87,6 +87,3 @@ exports.handler = function (event, context) {
     var helloWorld = new HelloWorld();
     helloWorld.execute(event, context);
 };
-
-// WeiSkill.formatData();
-WeiSkill.makeRecommendations(600, "ios", 16);
