@@ -1,10 +1,72 @@
 {
-  "intents": [
+  "intents" : [
     {
-      "intent": "HelloWorldIntent"
+      "intent" : "TriggerQuestionnaire"
     },
     {
-      "intent": "AMAZON.HelpIntent"
+      "intent" : "BudgetPreference",
+      "slots" : [
+        {
+          "name" : "minimumBudget",
+          "type" : "AMAZON.NUMBER"
+        },
+        {
+          "name" : "maximumBudget",
+          "type" : "AMAZON.NUMBER"
+        },
+        {
+          "name" : "aroundBudget",
+          "type" : "AMAZON.NUMBER"
+        }
+      ]
+    },
+    {
+      "intent" : "OSPreference",
+      "slots" : [
+        {
+          "name" : "osPreference",
+          "type" : "OS_SLOT"
+        }
+      ]
+    },
+    {
+      "intent" : "MemoryPreference",
+      "slots" : [
+        {
+          "name" : "memPreference",
+          "type" : "MEM_SLOT"
+        }
+      ]
+    },
+    {
+      "intent" : "ReadRecs"
+    },
+    {
+      "intent" : "ExpandPreferredRec",
+      "slots" : [
+        {
+          "name" : "expandPreferredNum",
+          "type" : "AMAZON.NUMBER"
+        }
+      ]
+    },
+    {
+      "intent" : "AskFurtherInfo",
+      "slots" : [
+        {
+          "name" : "expandPreferredNum",
+          "type" : "AMAZON.NUMBER"
+        }
+      ]
+    },
+    {
+      "intent" : "HappyEnding",
+      "slots" : [
+        {
+          "name" : "endingPreference",
+          "type" : "BOO_SLOT"
+        }
+      ]
     }
   ]
 }
