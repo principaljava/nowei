@@ -49,9 +49,9 @@ HelloWorld.prototype.eventHandlers.onSessionStarted = function (sessionStartedRe
 };
 
 HelloWorld.prototype.eventHandlers.onLaunch = function (launchRequest, session, response) {
-    console.log("HelloWorld onLaunch requestId: " + launchRequest.requestId + ", sessionId: " + session.sessionId);
-    var speechOutput = "Welcome to the Alexa Skills Kit, you can say hello";
-    var repromptText = "You can say hello";
+    console.log("onLaunch requestId: " + launchRequest.requestId + ", sessionId: " + session.sessionId);
+    var speechOutput = "Welcome to gif gaff phone finder. What is your budget";
+    var repromptText = "What is your budget";
     response.ask(speechOutput, repromptText);
 };
 
@@ -63,8 +63,18 @@ HelloWorld.prototype.eventHandlers.onSessionEnded = function (sessionEndedReques
 
 HelloWorld.prototype.intentHandlers = {
     // register custom intent handlers
-    "HelloWorldIntent": function (intent, session, response) {
-        response.tellWithCard("Hello World!", "Hello World", "Hello World!");
+    "BudgetIntent": function(intent, session, response) {
+        var maxBudget = intent.slots.maximumBudget.value;
+        var minBudget = intent.slots.minimumBudget.value;
+        
+        session.attributes.minBudget = minBudget;
+
+        response.ask("Okay, I understand your budget is between " 
+                    + minBudget + " and " + maxBudget + 
+                    ", what is your preferred o s?", "What is your preferred o s");
+    },
+    "TestIntent": function(intent, session, response) {
+        response.tell("here is it " + session.attributes.minBudget);
     },
     "AMAZON.HelpIntent": function (intent, session, response) {
         response.ask("You can say hello to me!", "You can say hello to me!");

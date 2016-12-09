@@ -1,7 +1,8 @@
-HelloWorldIntent say hello
-HelloWorldIntent say hello world
-HelloWorldIntent hello
-HelloWorldIntent say hi
-HelloWorldIntent say hi world
-HelloWorldIntent hi
-HelloWorldIntent how are you
+BudgetIntent between {minimumBudget} and {maximumBudget}
+BudgetIntent from {minimumBudget} to {maximumBudget}
+BudgetIntent {minimumBudget} to {maximumBudget}
+BudgetIntent up to {maximumBudget}
+BudgetIntent up to a maximum of {maximumBudget}
+BudgetIntent around {aroundBudget}
+
+TestIntent Test attributes

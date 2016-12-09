@@ -1,7 +1,27 @@
 {
   "intents": [
     {
+      "intent": "TestIntent"
+    },
+    {
       "intent": "HelloWorldIntent"
+    },
+    {
+      "intent": "BudgetIntent",
+      "slots": [
+      {
+        "name": "minimumBudget",
+        "type": "AMAZON.NUMBER"
+      },
+      {
+        "name": "maximumBudget",
+        "type": "AMAZON.NUMBER"
+      },
+      {
+        "name": "aroundBudget",
+        "type": "AMAZON.NUMBER"
+      }
+      ]
     },
     {
       "intent": "AMAZON.HelpIntent"
