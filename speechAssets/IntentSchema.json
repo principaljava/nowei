@@ -24,7 +24,7 @@
       "intent" : "OSPreference",
       "slots" : [
         {
-          "name" : "osPreference",
+          "name" : "osPref",
           "type" : "OS_SLOT"
         }
       ]
@@ -33,7 +33,7 @@
       "intent" : "MemoryPreference",
       "slots" : [
         {
-          "name" : "memPreference",
+          "name" : "memPref",
           "type" : "MEM_SLOT"
         }
       ]
@@ -51,13 +51,7 @@
       ]
     },
     {
-      "intent" : "AskFurtherInfo",
-      "slots" : [
-        {
-          "name" : "expandPreferredNum",
-          "type" : "AMAZON.NUMBER"
-        }
-      ]
+      "intent" : "AskFurtherInfo"
     },
     {
       "intent" : "HappyEnding",
