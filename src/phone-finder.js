@@ -9,12 +9,12 @@ function makeRecommendations(budget, os, memory){
     budget = (budget*100)*1.05;
 
     budgetFiltered = jsonQuery('phones[*price<='+ budget + ']', {data: phones}).value;
-
-    console.log(budgetFiltered);
+    
     //query OS
 
     jsonQuery('phones[*os=IOS]', {data: phones}).value
 
+    return budgetFiltered;
 
     //query memory
 }

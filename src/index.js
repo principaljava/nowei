@@ -27,7 +27,8 @@ var APP_ID = undefined; //replace with "amzn1.echo-sdk-ams.app.[your-unique-valu
  * The AlexaSkill prototype and helper functions
  */
 var AlexaSkill = require('./AlexaSkill');
-var WeiSkill = require('./WeiSkill');
+var format = require('string-format');
+
 /**
  * HelloWorld is a child of AlexaSkill.
  * To read more about inheritance in JavaScript, see the link below.
@@ -68,10 +69,81 @@ HelloWorld.prototype.intentHandlers = {
         var minBudget = intent.slots.minimumBudget.value;
         
         session.attributes.minBudget = minBudget;
+        session.attributes.maxBudget = maxBudget;
 
-        response.ask("Okay, I understand your budget is between " 
-                    + minBudget + " and " + maxBudget + 
-                    ", what is your preferred o s?", "What is your preferred o s");
+        var phoneFinder = require('./phone-finder');
+
+        var phonesWithinBudget = phoneFinder.makeRecommendations(maxBudget);
+
+        var responseString = 
+            "I have found {phoneCount} phones for you. \
+            The top 3 recommended phones are {phone1Title}, \
+            {phone2Title}, and {phone3Title}. Say 1, 2 and 3 to hear some \
+            details about the corresponding phone";
+
+        var responseDetails = {
+            phoneCount: phonesWithinBudget.length,
+            phone1Title: phonesWithinBudget[0].title,
+            phone2Title: phonesWithinBudget[1].title,
+            phone3Title: phonesWithinBudget[2].title,
+        };
+
+        responseString = format(responseString, responseDetails);
+
+        session.attributes.recommendedPhones = phonesWithinBudget;
+
+        response.ask(responseString);
+    },
+    "PhoneChoiceIntent": function(intent, session, response) {
+        var chosenPhone = intent.slots.chosenPhone.value;
+
+        var chosenPhoneIndex = 0;
+
+        switch (chosenPhone) {
+            case "ONE":
+                chosenPhoneIndex = 0;
+                break;
+            case "TWO":
+                chosenPhoneIndex = 1;
+                break;
+            case "THREE":
+                chosenPhoneIndex = 2;
+                break;
+            default:
+                chosenPhoneIndex = 0;
+                break;
+        }
+
+        var allRecommendedPhones = session.attributes.recommendedPhones;
+        var chosenPhone = allRecommendedPhones[chosenPhoneIndex]; 
+        var chosenPhoneTitle = chosenPhone.title;
+
+        var otherPhoneTitles = allRecommendedPhones.filter(function(elt, index) {
+                return index !== chosenPhoneIndex;
+            }).map(function(elt) {
+                return elt.title;
+            });
+        
+        session.attributes.phoneChoiceIntentState = "RemainingTwoPhones";
+        
+        var responseString = 
+            "Great! You chose to find some more details about {title}.\
+            {title} costs {price} pounds, \
+            runs on {os}, \
+            and comes in {colorsCount} colours, \
+            {colors}. So, do you want to know the details of the other 2 phones: {otherPhones}.\
+            Say 1 or 2 to know the details of the corresponding phone.";
+        
+        responseString = format(responseString, {
+            title: chosenPhoneTitle,
+            price: (chosenPhone.price / 100) | 0,
+            os: chosenPhone.os,
+            colorsCount: chosenPhone.colors.length,
+            colors: chosenPhone.colors.splice(0, chosenPhone.colors.length - 1).join(', ') +
+                        " and " + chosenPhone.colors[chosenPhone.colors.length - 1],
+            otherPhones: otherPhoneTitles.join(', and ')
+        });
+        response.ask(responseString);
     },
     "TestIntent": function(intent, session, response) {
         response.tell("here is it " + session.attributes.minBudget);
