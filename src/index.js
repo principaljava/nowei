@@ -79,18 +79,18 @@ HelloWorld.prototype.intentHandlers = {
         response.ask(responseString);
     },
     "PhoneChoiceIntent": function(intent, session, response) {
-        var chosenPhone = intent.slots.chosenPhone.value;
+        var chosenPhone = intent.slots.chosenPhone.value.toUpperCase();
 
         var chosenPhoneIndex = 0;
 
         switch (chosenPhone) {
-            case "ONE":
+            case "1":
                 chosenPhoneIndex = 0;
                 break;
-            case "TWO":
+            case "2":
                 chosenPhoneIndex = 1;
                 break;
-            case "THREE":
+            case "3":
                 chosenPhoneIndex = 2;
                 break;
             default:
@@ -172,7 +172,7 @@ HelloWorld.prototype.intentHandlers = {
         }
     },
     "YesNoIntent": function(intent, session, response) {
-        var yesOrNo = intent.slots.yesOrNo.value;
+        var yesOrNo = intent.slots.yesOrNo.value.toUpperCase();
 
         var fromWhere = session.attributes.fromWhere;
 
@@ -212,7 +212,28 @@ HelloWorld.prototype.intentHandlers = {
         }
     },
     "TestIntent": function(intent, session, response) {
-        response.tell("here is it " + session.attributes.minBudget);
+        var phoneChoice = intent.slots.phoneChoice.value.toUpperCase();
+
+        var responseString = "";
+
+        switch (phoneChoice) {
+            case "ONE":
+                responseString = "you said one";
+                break;
+            case "TWO":
+                responseString = "you said two";
+                break;
+            case "THREE":
+                responseString = "you said three";
+                break;
+            case "1":
+                responseString = "You said numeric one";
+                break;
+            default:
+                responseString = "Nothing matched";
+                break;
+        }
+        response.tell(responseString);
     },
     "AMAZON.HelpIntent": function (intent, session, response) {
         response.ask("You can say hello to me!", "You can say hello to me!");
