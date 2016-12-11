@@ -1,18 +1,22 @@
 var jsonQuery = require('json-query')
 var jsonfile = require('jsonfile');
 
-function makeRecommendations(budget, os, memory){
+function makeRecommendations(minBudget, maxBudget, os, memory){
     var phones = require('./phoneData')
-
+    
     //query budget
     // Add 10% to be cheeky
-    budget = (budget*100)*1.05;
+    //budget = (budget*100)*1.05;
 
-    budgetFiltered = jsonQuery('phones[*price<='+ budget + ']', {data: phones}).value;
+    minBudget = minBudget * 100;
+    maxBudget = maxBudget * 100;
+
+    budgetFiltered = jsonQuery('phones[* price >= '+ minBudget + ' & price <= ' + maxBudget + ']'
+                                , {data: phones}).value;
     
     //query OS
 
-    jsonQuery('phones[*os=IOS]', {data: phones}).value
+    //jsonQuery('phones[*os=IOS]', {data: phones}).value
 
     return budgetFiltered;
 

@@ -10,11 +10,107 @@ var format = require('string-format');
  * HelloWorld is a child of AlexaSkill.
  * To read more about inheritance in JavaScript, see the link below.
  *
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Introduction_to_Object-Oriented_JavaScript#Inheritance
  */
 var HelloWorld = function () {
     AlexaSkill.call(this, APP_ID);
 };
+
+var states = {
+    LAST_PHONE_READ: 'LAST_PHONE_READ',
+    ONLY_PHONE_AVAILABLE: 'ONLY_PHONE_AVAILABLE',
+    ONE_PHONE_REMAINING: 'ONE_PHONE_REMAINING'
+};
+
+function colorsToString(colors) {
+    var colorsCountString = colors.length === 1
+                            ? " colour " : " colours ";
+
+    var colorsCount = colors.length;
+
+    var colorsString = colors.length === 1
+                        ? colors[0]
+                        : colors.splice(0, colors.length - 1).join(', ') +
+                            " and " + colors[colors.length - 1];
+                            
+    return colorsCount + colorsCountString + ": " + colorsString;
+}
+
+function phoneTitlesToString(titles) {
+    var titlesString = titles.length === 1
+                        ? titles[0]
+                        : titles.splice(0, titles.length - 1).join(', ') +
+                            " and " + titles[titles.length - 1];
+
+    return titlesString;
+}
+
+function readPhones(intent, session, response, chosenPhoneIndex) {
+    var allRecommendedPhones = session.attributes.recommendedPhones;
+
+    if (chosenPhoneIndex === undefined) {
+        chosenPhoneIndex = 0;
+    }
+    
+    var unreadPhones = allRecommendedPhones.filter(function(elt, index) {
+        return !elt.hasAlexaReadThis;
+    });
+
+    var remainingPhones = unreadPhones.filter(function(elt,index) {
+        return index !== chosenPhoneIndex;
+    });
+
+    var remainingPhonesTitles = remainingPhones.map(function(elt) {
+        return elt.title;
+    });
+    
+    if (unreadPhones.length === 0) {
+        response.ask("I think either me or yourself lost track of the conversation.\
+        Sorry, we have to begin from the first step. What is your budget again?");
+        return;
+    }
+
+    var thePhoneToReadAbout = unreadPhones[chosenPhoneIndex];
+    thePhoneToReadAbout.hasAlexaReadThis = true;
+
+    var responseData = {
+            title: thePhoneToReadAbout.title,
+            price: (thePhoneToReadAbout.price / 100) | 0,
+            os: thePhoneToReadAbout.os,
+            colors: colorsToString(thePhoneToReadAbout.colors),
+            otherPhones: phoneTitlesToString(remainingPhonesTitles)
+        };
+    
+    var responsePhoneDetails = format("\
+        {title} costs {price} pounds, \
+            runs on {os}, \
+            and comes in {colors}", responseData);
+
+    if (session.attributes.readPhoneTitles === undefined) {
+        session.attributes.readPhoneTitles = [];
+    }
+    session.attributes.readPhoneTitles.push(thePhoneToReadAbout.title);
+
+    if (unreadPhones.length === 3) {
+        response.ask(format(
+            "Great! You chose to find some more details about {title}. " + responsePhoneDetails + 
+            ". So, do you want to know the details of the other 2 phones: {otherPhones}.\
+            Say 1 or 2 to know the details of the corresponding phone.", responseData));
+    } else if (unreadPhones.length === 2) {
+        session.attributes.fromWhere = states.ONE_PHONE_REMAINING;
+        response.ask(format(
+            (allRecommendedPhones.length === 2 ? "Great! You chose to find some more details about {title}. " : "") +
+            responsePhoneDetails + 
+            ". Do you want to know the details of the one other phone: {otherPhones}?", responseData));
+    } else if (unreadPhones.length === 1) {
+        session.attributes.lastInterestPhoneTitle = thePhoneToReadAbout.title;
+        session.attributes.fromWhere = states.LAST_PHONE_READ;
+        response.ask(
+            (allRecommendedPhones.length === 1 ? "You seem interested. Brilliant! " : "") + 
+            responsePhoneDetails +
+            ". That was the last of the recommended phones for your budget. Do you want to try a different budget \
+            to know the details of some more phones?");
+    }
+}
 
 // Extend AlexaSkill
 HelloWorld.prototype = Object.create(AlexaSkill.prototype);
@@ -53,15 +149,54 @@ HelloWorld.prototype.intentHandlers = {
 
         var phoneFinder = require('./phone-finder');
 
-        var phonesWithinBudget = phoneFinder.makeRecommendations(maxBudget);
+        var phonesWithinBudget = phoneFinder.makeRecommendations(minBudget, maxBudget);
 
-        var responseString = 
+        if (phonesWithinBudget.length === 0) {
+            response.ask("Sorry, we at gif gaff do not sell any phones within your budget at the moment. \
+            Tell me a different budget to search for.");
+            return;
+        }
+
+        if (phonesWithinBudget.length === 1) {
+            var theOnlyPhone = phonesWithinBudget[0];
+
+            session.attributes.fromWhere = states.ONLY_PHONE_AVAILABLE;
+            session.attributes.recommendedPhones = phonesWithinBudget;
+
+            response.ask(
+                format("I have found one phone for you: \
+                        {title}. Do you want to know the details of this phone?", theOnlyPhone));
+            return;
+        }
+
+        var responseString = "";
+        var responseDetails = {};
+
+        if (phonesWithinBudget.length === 2) {
+            responseString = 
+                "I have found 2 phones for you: \
+                {phone1Title}, {phone2Title}. Say 1, or 2 to hear the \
+                details about the corresponding phone";
+
+            responseDetails = {
+                phone1Title: phonesWithinBudget[0].title,
+                phone2Title: phonesWithinBudget[1].title
+            };
+
+            responseString = format(responseString, responseDetails);
+
+            session.attributes.recommendedPhones = phonesWithinBudget;
+            response.ask(responseString);
+            return;
+        }
+
+        responseString = 
             "I have found {phoneCount} phones for you. \
             The top 3 recommended phones are {phone1Title}, \
-            {phone2Title}, and {phone3Title}. Say 1, 2 and 3 to hear some \
+            {phone2Title}, and {phone3Title}. Say 1, 2 or 3 to hear some \
             details about the corresponding phone";
 
-        var responseDetails = {
+        responseDetails = {
             phoneCount: phonesWithinBudget.length,
             phone1Title: phonesWithinBudget[0].title,
             phone2Title: phonesWithinBudget[1].title,
@@ -98,116 +233,44 @@ HelloWorld.prototype.intentHandlers = {
                 break;
         }
 
-        var allRecommendedPhones = session.attributes.recommendedPhones;
-        allRecommendedPhones[chosenPhoneIndex].hasAlexaReadThis = true;
-
-        var otherPhones = allRecommendedPhones.filter(function(elt, index) {
-                return index !== chosenPhoneIndex;
-            });
-
-        if (session.attributes.primaryInterestPhoneIndex !== undefined) {
-            handleRemainingTwoPhones();
-            return;
-        }
-
-        var chosenPhone = allRecommendedPhones[chosenPhoneIndex]; 
-        var chosenPhoneTitle = chosenPhone.title;
-
-        var otherPhoneTitles = otherPhones.map(function(elt) {
-                return elt.title;
-            });
-
-        session.attributes.primaryInterestPhoneIndex = chosenPhoneIndex;
-
-        var responseString = 
-            "Great! You chose to find some more details about {title}.\
-            {title} costs {price} pounds, \
-            runs on {os}, \
-            and comes in {colorsCount} colours, \
-            {colors}. So, do you want to know the details of the other 2 phones: {otherPhones}.\
-            Say 1 or 2 to know the details of the corresponding phone.";
-
-        responseString = format(responseString, {
-            title: chosenPhoneTitle,
-            price: (chosenPhone.price / 100) | 0,
-            os: chosenPhone.os,
-            colorsCount: chosenPhone.colors.length,
-            colors: chosenPhone.colors.splice(0, chosenPhone.colors.length - 1).join(', ') +
-                        " and " + chosenPhone.colors[chosenPhone.colors.length - 1],
-            otherPhones: otherPhoneTitles.join(', and ')
-        });
-        response.ask(responseString);
-
-        ////////////////////////////////////////
-        function handleRemainingTwoPhones() {
-            var remainingPhones = allRecommendedPhones.filter(function(elt, index) {
-                return index !== session.attributes.primaryInterestPhoneIndex;
-            });
-
-            var chosenPhone = remainingPhones[chosenPhoneIndex];
-            chosenPhone.hasAlexaReadThis = true;
-
-            var theOtherPhone = remainingPhones.filter(function(elt, index) {
-                return index !== chosenPhoneIndex;
-            })[0];
-
-            var responseString = 
-                "{title} costs {price} pounds, \
-                runs on {os}, \
-                and comes in {colorsCount} colours, \
-                {colors}. So, do you want to know the details of the last one recommended phone too: {otherPhoneTitle}?";
-
-            session.attributes.fromWhere = "TwoRemainingPhones";
-
-            responseString = format(responseString, {
-                title: chosenPhone.Title,
-                price: (chosenPhone.price / 100) | 0,
-                os: chosenPhone.os,
-                colorsCount: chosenPhone.colors.length,
-                colors: chosenPhone.colors.splice(0, chosenPhone.colors.length - 1).join(', ') +
-                            " and " + chosenPhone.colors[chosenPhone.colors.length - 1],
-                otherPhoneTitle: theOtherPhone.title
-            });
-            response.ask(responseString);
-        }
+        readPhones(intent, session, response, chosenPhoneIndex);
     },
     "YesNoIntent": function(intent, session, response) {
         var yesOrNo = intent.slots.yesOrNo.value.toUpperCase();
 
         var fromWhere = session.attributes.fromWhere;
 
+        session.attributes.fromWhere = null;
+
         switch(fromWhere) {
-            case "TwoRemainingPhones":
-                handleTwoRemainingPhones();
+            case states.ONLY_PHONE_AVAILABLE:
+            case states.ONE_PHONE_REMAINING:
+                handleOnePhone();
+                break;
+            case states.LAST_PHONE_READ:
+                handleLastPhoneRead();
                 break;
         }
 
         ////////////////////////////////////////////////////////////////////////////
-        function handleTwoRemainingPhones() {
+        function handleOnePhone() {
             if (yesOrNo === "YES") {
-                var allRecommendedPhones = session.attributes.recommendedPhones;
-                var theLastPhone = allRecommendedPhones.find(function(elt) {
-                    return elt.hasAlexaReadThis !== true;
-                });
-
-                var responseString = 
-                    "{title} costs {price} pounds, \
-                    runs on {os}, \
-                    and comes in {colorsCount} colours, \
-                    {colors}.";
-
-                responseString = format(responseString, {
-                    title: theLastPhone.title,
-                    price: (theLastPhone.price / 100) | 0,
-                    os: theLastPhone.os,
-                    colorsCount: theLastPhone.colors.length,
-                    colors: theLastPhone.colors.splice(0, theLastPhone.colors.length - 1).join(', ') +
-                                " and " + theLastPhone.colors[theLastPhone.colors.length - 1]
-                });
-                response.tell(responseString);
+                readPhones(intent, session, response);
             } else {
-                response.tell("Alright. I'm sending a mail to you with the details of these recommended phones.\
-                Have a great day!");
+                response.tell(
+                    "Alright. I'm sending a mail to you with the details of these recommended phones.\
+                    Have a great day!");
+            }
+        }
+
+        function handleLastPhoneRead() {
+            if (yesOrNo === "YES") {
+                session.attributes.recommendedPhones = null;
+                response.ask("Excellent! Lets do this again. What is your revised budget?");
+            } else {
+                response.tell(
+                    "Alright. I'm sending a mail to you with the details of these recommended phones.\
+                    Have a great day!");
             }
         }
     },
