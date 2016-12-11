@@ -124,9 +124,33 @@ HelloWorld.prototype.eventHandlers.onSessionStarted = function (sessionStartedRe
 
 HelloWorld.prototype.eventHandlers.onLaunch = function (launchRequest, session, response) {
     console.log("onLaunch requestId: " + launchRequest.requestId + ", sessionId: " + session.sessionId);
-    var speechOutput = "Welcome to gif gaff phone finder. What is your budget";
+
+    var speechOutput = [];
+
+    speechOutput.push("Hi There. I'm Santi, I think I'm a product owner at gif gaff. I doubt it or may not. \
+    I may be or definitely I am. Whatever it comes, I'm not a product owner. Oops, I am. You see I'm already tired.\
+    I'm asked by Hazel to find your lost phone. Oh. What Hazel. Alright. Sorry, I'm asked to find a new phone for you \
+    within your budget. What is your budget?");
+
+    speechOutput.push("Hi There. I'm Hazel, scrum master at gif gaff, usually busy writing meeting notes that nobody\
+    cares. And always curling my hair in the air for no reason. I'm tired with my team, especially the phones team. \
+    So, I have taken a break today, and\
+    helping people find a suitable new phone within their budget. What is your budget?");
+
+    speechOutput.push("Hi There. I'm Prasheen, basically I'm an architect at gif gaff, basically attend too many meetings,\
+    basically draw some diagrams that nobody pays attention to, \
+    basically you see I'm tired of myself. So I have basically taken a break today, and \
+    basically helping people find a suitable new phone within their budget. Basically, What is your budget?");
+
+    speechOutput.push("Hi There. I'm Chris, Chief Swearing officer at gif gaff. Don't worry, I won't fucking swear at\
+    you today. Wonder why I'm here. I have been expelled by John from my fucking job for a day that his ears are literally bleeding \
+    hearing my swears this morning about fucking p g s. So I have taken a fucking break today, and \
+    helping people find a suitable fucking new phone within their budget. What is your fucking budget?");
+
     var repromptText = "What is your budget";
-    response.ask(speechOutput, repromptText);
+    var randomNum = Math.floor(Math.random() * 4) + 1;
+
+    response.ask(speechOutput[randomNum - 1], repromptText);
 };
 
 HelloWorld.prototype.eventHandlers.onSessionEnded = function (sessionEndedRequest, session) {
