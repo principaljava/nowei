@@ -143,7 +143,15 @@ HelloWorld.prototype.intentHandlers = {
     "BudgetIntent": function(intent, session, response) {
         var maxBudget = intent.slots.maximumBudget.value;
         var minBudget = intent.slots.minimumBudget.value;
+        var aroundBudget = intent.slots.aroundBudget.value;
+
+        if (!minBudget) minBudget = 0;
         
+        if (aroundBudget !== undefined) {
+            minBudget = (aroundBudget * 0.75) | 0;
+            maxBudget = (aroundBudget * 1.25) | 0;
+        }
+
         session.attributes.minBudget = minBudget;
         session.attributes.maxBudget = maxBudget;
 
